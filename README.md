@@ -1,4 +1,4 @@
-# rosie-knows
+# rosieKnows
 Rosie knows everything! A production-style RAG knowledge system built with LLMs.
 
 #### References
