@@ -1,0 +1,53 @@
+Rosie Knows Project Overview
+
+Rosie Knows is a production-style LLM knowledge platform designed to help users query and understand information from a collection of documents using Retrieval-Augmented Generation (RAG).
+
+The system is built as a learning project for AI platform engineering. It focuses on understanding the full pipeline of modern LLM systems, including ingestion, retrieval, generation, and evaluation.
+
+System Architecture
+
+The system is composed of several core components:
+
+1. Ingestion Pipeline
+The ingestion pipeline is responsible for loading documents, parsing their content, and splitting them into smaller chunks. These chunks are later used for retrieval.
+
+2. Embedding Layer
+Each chunk is transformed into a vector representation using an embedding model. These vectors capture semantic meaning and allow similarity search.
+
+3. Vector Storage
+All embeddings are stored in a vector database. Each vector is associated with metadata such as document source and chunk position.
+
+4. Retrieval System
+When a user asks a question, the system converts the query into an embedding and retrieves the most relevant chunks based on similarity.
+
+5. LLM Generation
+The retrieved chunks are passed into a large language model, which generates a final answer grounded in the provided context.
+
+Design Goals
+
+The project aims to:
+
+- simulate a real-world AI platform system
+- provide a modular and extensible architecture
+- support iterative improvements such as reranking and evaluation
+- demonstrate system design thinking for interviews
+
+Tradeoffs
+
+The system prioritizes simplicity in the first version. Instead of building a distributed system, it uses a single service architecture that is easier to understand and iterate on.
+
+Retrieval quality is expected to be limited in the first version because it uses simple methods. Future improvements may include better chunking strategies and reranking models.
+
+Future Improvements
+
+Possible extensions include:
+
+- hybrid retrieval combining keyword and vector search
+- caching for faster query responses
+- evaluation pipelines for measuring answer quality
+- support for different document formats such as PDFs
+- deployment as a web service
+
+Conclusion
+
+Rosie Knows is not just a demo application, but a system designed to reflect real AI engineering challenges. It emphasizes understanding over abstraction and aims to build strong intuition about how LLM systems work in practice.
