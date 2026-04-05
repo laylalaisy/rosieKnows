@@ -1,10 +1,12 @@
 # rosieKnows
-Rosie knows everything! A production-style RAG knowledge system built with LLMs.
+Rosie (my 4yo Corgi) knows everything xD
+
+This project is trying to build a  production-style (hopefully) RAG knowledge system for fun!
 
 ## Goals
-- build an end-to-end RAG pipeline
-- understand ingestion, retrieval, and generation
-- explore evaluation and reliability
+- Build an end-to-end RAG pipeline
+- Understand ingestion, retrieval, and generation etc
+- Explore evaluation and reliability
 
 ## Tech Stack
 - Python
@@ -13,9 +15,9 @@ Rosie knows everything! A production-style RAG knowledge system built with LLMs.
 - Streamlit
 
 ## Logs
-1. Retrieval: simple keywords intersection
+3. Add embedding cache to precompute embedding index + query-time retrieval over cached vectors
 2. Retrieval: update keywords with OpenAI embeddings model + consine similarity, each chunk calls `get_embedding` once now
-3. Add embedding cache
+1. Retrieval: simple keywords intersection
 
 ## References
 - Retrieval-Augmented Generation (RAG): https://www.pinecone.io/learn/retrieval-augmented-generation/
