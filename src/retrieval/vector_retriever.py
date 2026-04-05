@@ -1,20 +1,18 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 from src.embeddings.embedder import get_embedding
 from src.retrieval.vector_utils import cosine_similarity
 
-
-def retrieve_with_embeddings(
+def retrieve_from_index(
     query: str,
-    chunks: List[str],
+    index: List[Dict[str, Any]],
     top_k: int = 3
 ) -> List[Tuple[str, float]]:
     query_emb = get_embedding(query)
 
     scored = []
-    for chunk in chunks:
-        chunk_emb = get_embedding(chunk)
-        score = cosine_similarity(query_emb, chunk_emb)
-        scored.append((chunk, score))
+    for item in index:
+        score = cosine_similarity(query_emb, item["embedding"])
+        scored.append((item["text"], score))
 
     scored.sort(key=lambda x: x[1], reverse=True)
 
