@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 from src.ingestion.loaders import load_text_file
 from src.ingestion.chunker import chunk_text
-from src.retrieval.retriever import simple_keyword_retrieval
+from src.retrieval.vector_retriever import retrieve_with_embeddings
 from src.llm.generate import generate_answer
 
 
@@ -16,7 +16,7 @@ def main():
     text = load_text_file(file_path)
     chunks = chunk_text(text, chunk_size=500, overlap=100)
 
-    top_chunks_with_scores = simple_keyword_retrieval(query, chunks, top_k=3)
+    top_chunks_with_scores = retrieve_with_embeddings(query, chunks, top_k=3)
     top_chunks = [chunk for chunk, _ in top_chunks_with_scores]
 
     print("=== Top Retrieved Chunks ===")
