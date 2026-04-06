@@ -12,7 +12,7 @@ def retrieve_from_index(
     scored = []
     for item in index:
         score = cosine_similarity(query_emb, item["embedding"])
-        scored.append((item["text"], score))
+        scored.append((item, score))
 
     scored.sort(key=lambda x: x[1], reverse=True)
 

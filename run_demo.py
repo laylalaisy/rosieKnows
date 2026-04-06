@@ -14,6 +14,8 @@ def main():
 
     file_path = "data/sample.txt"
     query = "What are the main components of Rosie Knows?"
+    document_id = "sample_doc"
+    source_name = "data/sample.txt"
 
     text = load_text_file(file_path)
     chunks = chunk_text(text, chunk_size=500, overlap=100)
@@ -23,16 +25,20 @@ def main():
         index = load_index()
     else:
         print("Building new index...")
-        index = build_embedding_index(chunks)
+        index = build_embedding_index(
+            chunks,
+            document_id = document_id,
+            source_name = source_name)
         save_index(index)
 
-    top_chunks_with_scores = retrieve_from_index(query, index, top_k=3)
-    top_chunks = [chunk for chunk, _ in top_chunks_with_scores]
+    top_results = retrieve_from_index(query, index, top_k=3)
+    top_chunks = [item["text"] for item, _ in top_results]
 
     print("=== Top Retrieved Chunks ===")
-    for i, (chunk, score) in enumerate(top_chunks_with_scores, start=1):
-        print(f"\n--- Chunk {i} | score={score} ---\n")
-        print(chunk[:300])
+    for i, (item, score) in enumerate(top_results, start=1):
+        print(f"\n--- Chunk {i} | score={score:.4f} ---")
+        print(f"source={item['source']} chunk_index={item['chunk_index']}\n")
+        print(item["text"][:300])
 
     print("\n=== LLM Answer ===\n")
     answer = generate_answer(query, top_chunks)
