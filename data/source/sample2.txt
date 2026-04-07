@@ -1,0 +1,15 @@
+RAG Evaluation Overview
+
+Evaluation is an important component of a Retrieval-Augmented Generation system. It helps measure how well the system retrieves relevant documents and generates correct answers.
+
+There are two main aspects of evaluation:
+
+1. Retrieval Quality
+This measures whether the correct chunks are retrieved for a given query. Metrics may include recall, precision, and ranking quality.
+
+2. Answer Quality
+This measures whether the generated answer is correct, grounded, and complete.
+
+Common problems in RAG systems include hallucination, irrelevant retrieval, and missing context.
+
+To improve evaluation, developers often create a benchmark dataset with known questions and expected answers.

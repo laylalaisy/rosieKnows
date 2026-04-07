@@ -12,28 +12,44 @@ from src.llm.generate import generate_answer
 def main():
     load_dotenv()
 
-    file_path = "data/sample.txt"
-    query = "What are the main components of Rosie Knows?"
+    # Constants
+    data_dir = "data/source"
+    files = [f for f in os.listdir(data_dir) if f.endswith(".txt")]
+
     document_id = "sample_doc"
     source_name = "data/sample.txt"
 
-    text = load_text_file(file_path)
-    chunks = chunk_text(text, chunk_size=500, overlap=100)
+    query = "What are common problems in RAG systems?"
 
+    # Build embeddng index and store
     if index_exists():
         print("Loading existing index...")
         index = load_index()
     else:
         print("Building new index...")
-        index = build_embedding_index(
-            chunks,
-            document_id = document_id,
-            source_name = source_name)
+        index = []
+
+        for file_name in files:
+            file_path = os.path.join(data_dir, file_name)
+            
+            text = load_text_file(file_path)
+            chunks = chunk_text(text)
+
+            doc_index = build_embedding_index(
+                chunks,
+                document_id=file_name,
+                source_name=file_path,
+            )
+            
+            index.extend(doc_index)
+        
         save_index(index)
 
+    # Retrival
     top_results = retrieve_from_index(query, index, top_k=3)
     top_chunks = [item["text"] for item, _ in top_results]
 
+    # Display results
     print("=== Top Retrieved Chunks ===")
     for i, (item, score) in enumerate(top_results, start=1):
         print(f"\n--- Chunk {i} | score={score:.4f} ---")
