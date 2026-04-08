@@ -2,7 +2,7 @@ import json
 import os
 from typing import List, Dict, Any
 
-INDEX_PATH = "data/index.json"
+INDEX_PATH = "data/inputsindex.json"
 
 def save_index(index: List[Dict[str, Any]]):
     with open(INDEX_PATH, "w", encoding="utf-8") as f:

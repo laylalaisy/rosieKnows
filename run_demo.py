@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
-
 from src.ingestion.loaders import load_text_file
 from src.ingestion.chunker import chunk_text
 from src.retrieval.index_builder import build_embedding_index
 from src.retrieval.index_storage import load_index, save_index, index_exists
+from src.retrieval.index_invalidation import build_index_meta, save_meta, should_rebuild_index
 from src.retrieval.vector_retriever import retrieve_from_index
 from src.llm.generate import generate_answer
 
@@ -13,7 +13,7 @@ def main():
     load_dotenv()
 
     # Constants
-    data_dir = "data/source"
+    data_dir = "data/inputs"
     files = [f for f in os.listdir(data_dir) if f.endswith(".txt")]
 
     document_id = "sample_doc"
@@ -21,8 +21,13 @@ def main():
 
     query = "What are common problems in RAG systems?"
 
+    chunk_size = 500
+    overlap = 100
+
     # Build embeddng index and store
-    if index_exists():
+    current_meta = build_index_meta(data_dir, chunk_size, overlap)
+
+    if index_exists() and not should_rebuild_index(current_meta):
         print("Loading existing index...")
         index = load_index()
     else:
@@ -33,7 +38,7 @@ def main():
             file_path = os.path.join(data_dir, file_name)
             
             text = load_text_file(file_path)
-            chunks = chunk_text(text)
+            chunks = chunk_text(text, chunk_size, overlap)
 
             doc_index = build_embedding_index(
                 chunks,
@@ -44,6 +49,7 @@ def main():
             index.extend(doc_index)
         
         save_index(index)
+        save_meta(current_meta)
 
     # Retrival
     top_results = retrieve_from_index(query, index, top_k=3)
