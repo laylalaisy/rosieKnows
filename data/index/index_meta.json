@@ -2,7 +2,7 @@
   "files": {
     "data/inputs/sample1.txt": "bca1c10c83b16058e736c19274013c08047e3094f2d59ab35ebfd578dc4dea9e",
     "data/inputs/sample2.txt": "e1b1d2bd874d5f1e13a01cf9a19290af21a4fa15482135c0cbaba692dd2c574a",
-    "data/inputs/sample3.txt": "e1b1d2bd874d5f1e13a01cf9a19290af21a4fa15482135c0cbaba692dd2c574a"
+    "data/inputs/sample3.txt": "98fbdaf1b4e6e21ad75e8b4983cda92f652fda5f98e21e0e55b07af73b6b693a"
   },
   "chunk_size": 500,
   "overlap": 100

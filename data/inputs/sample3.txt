@@ -1,15 +1,19 @@
-RAG Evaluation Overview
+LLM System Reliability
 
-Evaluation is an important component of a Retrieval-Augmented Generation system. It helps measure how well the system retrieves relevant documents and generates correct answers.
+Reliability is an important concern in LLM systems. Even when retrieval works correctly, generation can still fail due to poor prompt design, insufficient context, or inconsistent model behavior.
 
-There are two main aspects of evaluation:
+Common reliability concerns include:
 
-1. Retrieval Quality
-This measures whether the correct chunks are retrieved for a given query. Metrics may include recall, precision, and ranking quality.
+1. Hallucination
+The model may generate information that is not supported by the retrieved context.
 
-2. Answer Quality
-This measures whether the generated answer is correct, grounded, and complete.
+2. Incomplete answers
+The model may omit important details even when relevant chunks are retrieved.
 
-Common problems in RAG systems include hallucination, irrelevant retrieval, and missing context.
+3. Source attribution
+A trustworthy system should make it clear which source documents support an answer.
 
-To improve evaluation, developers often create a benchmark dataset with known questions and expected answers.
+4. Latency and cost
+As more context is added to a prompt, latency and token cost increase.
+
+To improve reliability, teams often add evaluation pipelines, prompt iteration, source citations, and retrieval quality analysis.

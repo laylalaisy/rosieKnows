@@ -1,7 +1,6 @@
 import os
 from openai import OpenAI
 
-
 def generate_answer(query: str, context_chunks: list[str]) -> str:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
@@ -14,6 +13,8 @@ def generate_answer(query: str, context_chunks: list[str]) -> str:
     prompt = f"""
 You are a helpful assistant answering questions based only on the provided context.
 
+Each contex chunk has a source.
+
 Context:
 {context}
 
@@ -23,7 +24,7 @@ Question:
 Instructions:
 - Answer using only the provided context.
 - If the context is insufficient, say you do not know.
-- Be concise.
+- Cite sources in your answer like (source: filename).
 """
 
     response = client.responses.create(

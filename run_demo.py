@@ -53,8 +53,11 @@ def main():
 
     # Retrival
     top_results = retrieve_from_index(query, index, top_k=3)
-    top_chunks = [item["text"] for item, _ in top_results]
-
+    top_chunks = [
+        f"[source: {item['source']} | chunk: {item['chunk_index']}]\n{item['text']}"
+        for item, _ in top_results
+    ]
+    
     # Display results
     print("=== Top Retrieved Chunks ===")
     for i, (item, score) in enumerate(top_results, start=1):
